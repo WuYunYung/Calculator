@@ -1,57 +1,91 @@
 function writeNumber(char) {
+    var lessMarker = false;
     var result_string = Result.innerHTML;
-    if (result_string.length < 21) {        //控制字符串长度
-        if (result_string[0]=="0") {
-            Result.innerHTML=char;
-        }
-        else{
-            if (result_string.length>2) {
-                var result_string_list=result_string.split(',');
-                var new_result_string='';
-                for (let i = 0; i < result_string_list.length; i++) {
-                    new_result_string+=result_string_list[i];
-                }
-                new_result_string+=char;
-
-                var new_2_result_string=new_result_string.slice(0,new_result_string.length%3);
-                for (let i = new_result_string.length%3; i < new_result_string.length; i+=3) {
-                    new_2_result_string+=',';
-                    new_2_result_string+=new_result_string.slice(i,i+3);
-                }
-                if (new_2_result_string[0]==',') {
-                    new_2_result_string=new_2_result_string.slice(1,new_2_result_string.length);
-                }
-                Result.innerHTML=new_2_result_string;
+    if (result_string[0] == '-') {
+        lessMarker = true;
+        result_string = result_string.slice(1, result_string.length);
+    }
+    if (result_string.length < 21) {
+        if (result_string.indexOf('.') != -1) {
+            Result.innerHTML += char;
+        }       //控制字符串长度
+        else {
+            if (result_string[0] == "0") {
+                Result.innerHTML = char;
             }
-            else{
-                Result.innerHTML+=char;
+            else {
+                if (result_string.length > 2) {
+                    var result_string_list = result_string.split(',');
+                    var new_result_string = '';
+                    for (let i = 0; i < result_string_list.length; i++) {
+                        new_result_string += result_string_list[i];
+                    }
+                    new_result_string += char;
+
+                    var new_2_result_string = new_result_string.slice(0, new_result_string.length % 3);
+                    for (let i = new_result_string.length % 3; i < new_result_string.length; i += 3) {
+                        new_2_result_string += ',';
+                        new_2_result_string += new_result_string.slice(i, i + 3);
+                    }
+                    if (new_2_result_string[0] == ',') {
+                        new_2_result_string = new_2_result_string.slice(1, new_2_result_string.length);
+                    }
+                    if (lessMarker) {
+                        Result.innerHTML = '-' + new_2_result_string;
+                    }
+                    else {
+                        Result.innerHTML = new_2_result_string;
+                    }
+                }
+                else {
+                    Result.innerHTML += char;
+                }
             }
         }
     }
 }
 
-function writeBackspace(){
+function writeBackspace() {
     var result_string = Result.innerHTML;
-    if (result_string.length>1) {
-        var result_string_list=result_string.split(',');
-        var new_result_string='';
+    if (result_string.length > 1) {
+        var result_string_list = result_string.split(',');
+        var new_result_string = '';
         for (let i = 0; i < result_string_list.length; i++) {
-            new_result_string+=result_string_list[i];
+            new_result_string += result_string_list[i];
         }
-        new_result_string=new_result_string.slice(0,new_result_string.length-1);
+        new_result_string = new_result_string.slice(0, new_result_string.length - 1);
 
-        var new_2_result_string=new_result_string.slice(0,new_result_string.length%3);
-        for (let i = new_result_string.length%3; i < new_result_string.length; i+=3) {
-            new_2_result_string+=',';
-            new_2_result_string+=new_result_string.slice(i,i+3);
+        var new_2_result_string = new_result_string.slice(0, new_result_string.length % 3);
+        for (let i = new_result_string.length % 3; i < new_result_string.length; i += 3) {
+            new_2_result_string += ',';
+            new_2_result_string += new_result_string.slice(i, i + 3);
         }
-        if (new_2_result_string[0]==',') {
-            new_2_result_string=new_2_result_string.slice(1,new_2_result_string.length);
+        if (new_2_result_string[0] == ',') {
+            new_2_result_string = new_2_result_string.slice(1, new_2_result_string.length);
         }
-        Result.innerHTML=new_2_result_string;
+        Result.innerHTML = new_2_result_string;
     }
-    else{
-        Result.innerHTML='0';
+    else {
+        Result.innerHTML = '0';
+    }
+}
+
+function writePlusLess() {
+    var result_string = Result.innerHTML;
+    if (result_string[0] != '-') {
+        Result.innerHTML = '-' + result_string;
+    }
+    else {
+        // console.log(result_string.slice(1, result_string.length));
+        Result.innerHTML = result_string.slice(1, result_string.length);
+    }
+}
+
+function writeDot() {
+    var result_string = Result.innerHTML;
+    // console.log(Result.innerHTML.indexOf('.'));
+    if ((Result.innerHTML.indexOf('.') == -1) && (result_string.length < 21)) {
+        Result.innerHTML += '.';
     }
 }
 
@@ -88,14 +122,20 @@ function write(char) {
             writeNumber("9");
             break;
         case "ce":
-            Result.innerHTML='0';
+            Result.innerHTML = '0';
             break;
         case "c":
-            Result.innerHTML='0';
-            official.innerHTML='&nbsp;'
+            Result.innerHTML = '0';
+            official.innerHTML = '&nbsp;'
             break;
         case "backspace":
             writeBackspace();
+            break;
+        case "plusLess":
+            writePlusLess();
+            break;
+        case ".":
+            writeDot();
             break;
     }
 }
@@ -227,7 +267,7 @@ window.onload = function () {
     const equal = document.getElementById("equal");
 
     const Result = document.getElementById("Result");
-    const official=document.getElementById("official");
+    const official = document.getElementById("official");
 
     main();
 }
