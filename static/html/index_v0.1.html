@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/style_v0.1.css">
+    <title>calculator</title>
+</head>
+
+<body>
+    <div class="main">
+        <form name="form">
+            <input class="resultview" name="resultview" readonly>
+            <input class="textview" name="textview" readonly onclick="copy()">
+        </form>
+        <table>
+            <tr>
+                <td><input onclick="clean()" class="button" type="button" value="CE"></td>
+                <td><input onclick="clean_all()" class="button" type="button" value="C"></td>
+                <td><input onclick="back()" class="button" type="button" value="Backspace"></td>
+                <td><input onclick="insert('/')" class="button operator" type="button" value="&#247;"></td>
+            </tr>
+            <tr>
+                <td><input onclick="insert(7)" class="button number" type="button" value="7"></td>
+                <td><input onclick="insert(8)" class="button number" type="button" value="8"></td>
+                <td><input onclick="insert(9)" class="button number" type="button" value="9"></td>
+                <td><input onclick="insert('*')" class="button operator" type="button" value="&times;"></td>
+            </tr>
+            <tr>
+                <td><input onclick="insert(4)" class="button number" type="button" value="4"></td>
+                <td><input onclick="insert(5)" class="button number" type="button" value="5"></td>
+                <td><input onclick="insert(6)" class="button number" type="button" value="6"></td>
+                <td><input onclick="insert('+')" class="button operator" type="button" value="+"></td>
+            </tr>
+            <tr>
+                <td><input onclick="insert(1)" class="button number" type="button" value="1"></td>
+                <td><input onclick="insert(2)" class="button number" type="button" value="2"></td>
+                <td><input onclick="insert(3)" class="button number" type="button" value="3"></td>
+                <td><input onclick="insert('-')" class="button operator" type="button" value="-"></td>
+            </tr>
+            <tr>
+                <td><input onclick="PL()" class="button" type="button" value="&#177;"></td>
+                <td><input onclick="insert(0)" class="button number" type="button" value="0"></td>
+                <td><input onclick="insert('.')" class="button" type="button" value="."></td>
+                <td><input onclick="total()" class="button operator" type="button" value="="></td>
+            </tr>
+        </table>
+    </div>
+    <script src="../js/calculator_v0.1.js"></script>
+</body>
+
+</html>
